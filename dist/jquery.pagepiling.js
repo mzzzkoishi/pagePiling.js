@@ -100,7 +100,7 @@
         * Moves sectio up
         */
         PP.moveSectionUp = function () {
-            var prev = $('.pp-section.active').prev('.pp-section');
+            var prev = $('.pp-section.active').prevAll('.pp-section')[0];
 
             //looping to the bottom if there's no more sections above
             if (!prev.length && options.loopTop) {
@@ -116,7 +116,7 @@
         * Moves sectio down
         */
         PP.moveSectionDown = function () {
-            var next = $('.pp-section.active').next('.pp-section');
+            var next = $('.pp-section.active').nextAll('.pp-section')[0];
 
             //looping to the top if there's no more sections below
             if(!next.length && options.loopBottom){
@@ -1002,7 +1002,6 @@
           .off('mouseover', options.normalScrollElements)
           .off('mouseout', options.normalScrollElements);
 
-
         if(all){
           destroyStructure();
         }
@@ -1040,9 +1039,13 @@
         //scrolling the page to the top with no animation
         $htmlBody.scrollTop(0);
 
+        if(options.navigation){
+          $('#pp-nav').remove();
+        }
+
         //removing selectors
         $('.pp-section').each(function(){
-          $(this).removeAttr('style').removeAttr('data-anchor').removeClass('pp-section active pp-table');
+          $(this).removeAttr('style').removeAttr('data-anchor').removeClass('pp-section active pp-table pp-easing');
         })
       }
     };
